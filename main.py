@@ -71,7 +71,11 @@ if __name__ == "__main__":
     fig, ax = plt.subplots(figsize=(fig_height, fig_width))
 
     while True:
-        boxes = generate_layout(ax, box_count, wall_width, wall_height, box_size, spacing_granularity)
+        try:
+            boxes = generate_layout(ax, box_count, wall_width, wall_height, box_size, spacing_granularity)
+        except RecursionError:
+            print("Unable to solve. Retrying...")
+            continue
 
         plt.show(block=False)
 
