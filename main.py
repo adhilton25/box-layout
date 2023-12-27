@@ -70,13 +70,19 @@ if __name__ == "__main__":
 
     fig, ax = plt.subplots(figsize=(fig_height, fig_width))
 
-    while True:
+    max_failures = 10
+    failures = 0
+    while failures < max_failures:
         try:
             boxes = generate_layout(ax, box_count, wall_width, wall_height, box_size, spacing_granularity)
         except RecursionError:
             print("Unable to solve. Retrying...")
+            failures += 1
             continue
 
         plt.show(block=False)
 
         input("Press Enter to refresh layout...")
+        failures = 0
+
+    print("No solution found.")
